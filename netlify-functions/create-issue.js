@@ -1,13 +1,21 @@
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({
-    auth: '76ad611c1fa006ec747d69d9f07294ff29077370'
+    auth: process.env.GITHUB_ACCESS_TOKEN,
 })
 
 exports.handler = async (event) => {
     const body = JSON.parse(event.body);
 
+    const response = await octokit.issues.createComment({
+        owner: 'FDiskas',
+        repo: 'hasura-test',
+        title: body.event.data.new.title,
+        body: body.event.data.new.content,
+      });
+
+
     return {
         statusCode: 200,
-        body: JSON.stringify(body)
+        body: JSON.stringify(response)
     }
 }
