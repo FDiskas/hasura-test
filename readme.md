@@ -1,0 +1,1 @@
+## Test hasura and serverless functions on netlify
